@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package posley.common;
+
+enum Exchange {
+  EXCHANGE_UNSPECIFIED = 0;
+  BINANCE = 1;
+  BYBIT = 2;
+}
+
+enum OBEventType {
+  OB_EVENT_UNSPECIFIED = 0;
+
+  DELTA = 1;
+
+  SNAPSHOT = 2;
+
+  HEARTBEAT = 3;
+
+  RESYNC_REQUIRED = 4;
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package posley.base;
+
+message BaseReq{
+  // for latter rpc frame middleware inject rpc context
+  map<string, string> ext_map = 1;
+}
+
+message BaseResp {
+  int64 err_code = 1;
+  string msg = 2;
+  // for latter rpc frame middleware inject rpc context
+  map<string, string> ext_map = 3;
+}

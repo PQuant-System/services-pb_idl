@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package posley.domain.market_data;
+
+import "common/common.proto";
+
+message PriceLevel {
+  double price = 1;
+  double qty   = 2;
+}
+
+message OBDelta {
+  uint64 seq_id = 1;
+
+  repeated PriceLevel bid_updates = 2;  // e.g. price->qty，qty=0 means to delete
+  repeated PriceLevel ask_updates = 3;
+}
+
+message OBSnapshot {
+  uint64 seq_id = 1;
+
+  repeated PriceLevel bids = 2;   // list order: start from best bit
+  repeated PriceLevel asks = 3;   // list order: start from best ask
+
+  uint32 depth = 4;
+}
+
+message Heartbeat {
+  int64 ts_ms = 1;
+}
+
+message Resync {
+  string reason = 1;
+}
+
+message OBEvent {
+  posley.common.Exchange exchange = 1;
+  string symbol      = 2;
+
+  posley.common.OBEventType type = 3;
+
+  int64 ts_ms    = 4;
+  uint64 seq_id  = 5;
+
+  oneof payload {
+    OBDelta delta       = 10;
+    OBSnapshot snapshot = 11;
+    Heartbeat heartbeat = 12;
+    Resync resync       = 13;
+  }
+}
