@@ -3,9 +3,8 @@ syntax = "proto3";
 package posley.service.market_data;
 
 import "domain/market_data/market_data_api.proto";
-import "domain/market_data/market_data_model.proto";
 
 service MarketDataService {
-  rpc StreamOrderBook(posley.domain.market_data.OBStreamRequest) returns (stream posley.domain.market_data.OBEvent);
+  rpc StreamOrderBook(posley.domain.market_data.OBStreamRequest) returns (stream posley.domain.market_data.OBStreamResponse);
   rpc GetSnapshot(posley.domain.market_data.OBSnapshotRequest) returns (posley.domain.market_data.OBSnapshot);
 }

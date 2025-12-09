@@ -4,20 +4,48 @@ package posley.domain.market_data;
 
 import "common/common.proto";
 import "base/base.proto";
+import "domain/market_data/market_data_model.proto";
 
-message OBStreamRequest {
+// ===== OBStreamRequest & OBStreamResponse =====
+message OBStreamRequestData {
   posley.common.Exchange exchange = 1;
   string symbol      = 2;
   bool send_snapshot_on_start = 3;
   uint64 last_known_seq = 4;
-
-  base.BaseReq base_req = 1024;
 }
 
-message OBSnapshotRequest {
+message OBStreamRequest {
+  OBStreamRequestData data = 1;
+  base.BaseReq base = 2;
+}
+
+message OBStreamResponseData {
+  posley.domain.market_data.OBEvent event = 1;
+}
+
+message OBStreamResponse {
+  OBStreamResponseData data = 1;
+  base.BaseResp base = 2;
+}
+
+// ===== OBSnapshotRequest & OBSnapshotResponse =====
+
+message OBSnapshotRequestData {
   posley.common.Exchange exchange = 1;
   string symbol      = 2;
   uint32 depth       = 3;
+}
 
-  base.BaseReq base_req = 1024;
+message OBSnapshotRequest {
+  OBSnapshotRequestData data = 1;
+  base.BaseReq base = 2;
+}
+
+message OBSnapshotResponseData {
+  posley.domain.market_data.OBSnapshot snapshot= 1;
+}
+
+message OBSnapshotResponse {
+  OBSnapshotResponseData data = 1;
+  base.BaseResp base = 2;
 }
