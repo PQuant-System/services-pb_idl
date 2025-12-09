@@ -3,16 +3,21 @@ syntax = "proto3";
 package posley.domain.market_data;
 
 import "common/common.proto";
+import "base/base.proto";
 
 message OBStreamRequest {
   posley.common.Exchange exchange = 1;
   string symbol      = 2;
   bool send_snapshot_on_start = 3;
   uint64 last_known_seq = 4;
+
+  base.BaseReq base_req = 1024;
 }
 
 message OBSnapshotRequest {
   posley.common.Exchange exchange = 1;
   string symbol      = 2;
-  uint32 depth       = 3; // 例如 20, 100
+  uint32 depth       = 3;
+
+  base.BaseReq base_req = 1024;
 }
